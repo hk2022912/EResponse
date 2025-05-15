@@ -17,7 +17,7 @@ const tutorials = [
     title: 'Jaw Injury Bandage Technique',
     image: require('../assets/tutorial1.png'),
     videoUrl: 'https://youtu.be/2ffYeuTjjvI?si=3M3mop2iWq2XuFsz',
-    audio: require('../assets/test.mp3'),
+    audio: require('../assets/modal1.mp3'),
     instructions: [
       'Ensure the patient is sitting comfortably and can breathe properly.',
       'Place the center of the bandage under the chin.',
@@ -32,7 +32,7 @@ const tutorials = [
     title: 'How to Protect Yourself During an Earthquake | Disasters',
     image: require('../assets/tutorial2.png'),
     videoUrl: 'https://youtu.be/BLEPakj1YTY?si=u3YGVPuBL__K-3Qf',
-    audio: require('../assets/test.mp3'),
+    audio: require('../assets/modal2.mp3'),
     instructions: [
       'Drop to your hands and knees to prevent being knocked over.',
       'Cover your head and neck with your arms.',
@@ -44,7 +44,7 @@ const tutorials = [
     title: 'How to Give First Aid and Treat a Fracture',
     image: require('../assets/tutorial3.png'),
     videoUrl: 'https://youtu.be/88s4LGZFhIc?si=H1VAv8d0k6hZs8Xf',
-    audio: require('../assets/test.mp3'),
+    audio: require('../assets/modal3.mp3'),
     instructions: [
       'Check the person’s airway and breathing.',
       'Immobilize the fractured area with a splint or any rigid material.',
@@ -56,7 +56,7 @@ const tutorials = [
     title: 'The Earthquake Plan',
     image: require('../assets/tutorial4.png'),
     videoUrl: 'https://youtu.be/VSvB2US5r-4?si=iL0Kz570P4TZSKvQ',
-    audio: require('../assets/test.mp3'),
+    audio: require('../assets/modal4.mp3'),
     instructions: [
       'Have an emergency kit ready with food, water, and first aid supplies.',
       'Plan evacuation routes and a meeting point.',
