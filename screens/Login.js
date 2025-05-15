@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,6 +14,42 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function LoginScreen({ navigation }) {
   const [secureText, setSecureText] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Missing Fields', 'Please fill in both email and password');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://192.168.164.240:8000/api/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', // Important to store session
+        body: JSON.stringify({
+          username: email, // FIX: send email as username
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+      console.log('Response from server:', data);
+
+      if (response.ok) {
+        Alert.alert('Success', 'Login successful!');
+        navigation.replace('Dashboard'); // Redirect properly
+      } else {
+        Alert.alert('Login Failed', data.detail || 'Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      Alert.alert('Network Error', 'Please try again later');
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -34,6 +71,9 @@ export default function LoginScreen({ navigation }) {
         style={styles.input}
         placeholder="Enter your email"
         placeholderTextColor="#999"
+        value={email}
+        onChangeText={setEmail}
+        autoCapitalize="none"
       />
 
       {/* Password Input */}
@@ -44,6 +84,8 @@ export default function LoginScreen({ navigation }) {
           placeholder="Enter your password"
           secureTextEntry={secureText}
           placeholderTextColor="#999"
+          value={password}
+          onChangeText={setPassword}
         />
         <TouchableOpacity
           style={styles.eyeIcon}
@@ -65,7 +107,7 @@ export default function LoginScreen({ navigation }) {
       {/* Login Button */}
       <TouchableOpacity
         style={styles.loginButton}
-        onPress={() => navigation.navigate('Dashboard')}
+        onPress={handleLogin}
       >
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
@@ -77,7 +119,7 @@ export default function LoginScreen({ navigation }) {
         <View style={styles.line} />
       </View>
 
-      {/* Social Login Icons */}
+      {/* Social Login */}
       <View style={styles.socialLogin}>
         <TouchableOpacity>
           <FontAwesome name="facebook" size={32} color="#1877F2" />
@@ -90,13 +132,17 @@ export default function LoginScreen({ navigation }) {
       {/* Register Link */}
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <Text style={styles.registerPrompt}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <Text style={styles.registerLink}>Register</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
+// =========================
+//      STYLES
+// =========================
 
 const styles = StyleSheet.create({
   container: {

@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Linking,
+  BackHandler,
+  Alert,
 } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
@@ -38,10 +40,45 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
+  // Handle the back button press and show the logout confirmation only in the dashboard
+  const handleBackPress = () => {
+    if (navigation.isFocused()) { // Only show logout message if Home screen is focused
+      Alert.alert(
+        'Confirm Logout',
+        'Are you sure you want to log out?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => null, // Do nothing and stay on the screen
+            style: 'cancel',
+          },
+          {
+            text: 'OK',
+            onPress: () => navigation.goBack(), // Go back if user confirms
+          },
+        ],
+        { cancelable: false }
+      );
+      return true; // Prevent the default behavior (exiting the app)
+    }
+
+    return false; // Default back button behavior
+  };
+
+  // Set up back button listener when the component is mounted
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    // Cleanup on unmount
+    return () => {
+      backHandler.remove();
+    };
+  }, []);
+
   // Fetch news once when the component mounts and set up polling every 30 seconds
   useEffect(() => {
     fetchNews(); // Fetch initially
-    const interval = setInterval(fetchNews, 20000); // Poll every 30 seconds
+    const interval = setInterval(fetchNews, 20000); // Poll every 20 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
   }, []);
