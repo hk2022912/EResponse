@@ -4,7 +4,7 @@
     "slug": "EResponseApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",  
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
@@ -17,13 +17,21 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo.png",  
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["INTERNET"]
+      "permissions": [
+        "INTERNET"
+      ],
+      "package": "com.hk2022912.EResponseApp"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo.png"  
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4086c5d7-ec51-44bf-832e-597c18a93460"
+      }
     }
   }
 }
